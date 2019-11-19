@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity } from 'react-native';
 
-export default function MovieList() {
+
+export default function MovieList(props) {
   const [movies, setMovies] = useState([]);
   useEffect(() => {
     fetch("http://192.168.1.31:8000/api/movies/", {
@@ -15,6 +16,10 @@ export default function MovieList() {
       .catch(error => console.log(error));
   }, []);
 
+  const movieclicked = (movie) => {
+props.navigation.navigate("Detail", {movie: movie})
+  }
+
   return (
     <View>
     <Image source={require('../assets/MR_logo.png')}
@@ -24,9 +29,11 @@ export default function MovieList() {
       <FlatList
         data={movies}
         renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => movieclicked(item)}>
           <View style={styles.item}>
             <Text style={styles.itemText}>{item.title}</Text>
           </View>
+          </TouchableOpacity>
         )}
         keyExtractor={(item, index) => index.toString()}
       />

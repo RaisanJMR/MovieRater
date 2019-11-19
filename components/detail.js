@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text} from 'react-native';
  
- export default class Detail extends React.Component {
- 
-  render() {
-    return (
-      <View>
-        <Text>Details page here</Text>
-      </View>
-    )
-  }
-}
+ export default function Detail(props) {
+
+
+  const movie = props.navigation.getParam('movie', null);
+   return (
+     <View>
+       <Text>Details about {movie.title}</Text>
+     </View>
+   );
+ }
 
 const styles = StyleSheet.create({
   container: {
